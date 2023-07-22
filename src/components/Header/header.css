@@ -4,6 +4,7 @@
   font-family: 'Tektur', cursive;
   display: flex;
   justify-content: center;
+  margin-top: 1rem;
 }
 .header span:nth-child(1) {
   background: linear-gradient(90deg, rgb(0, 255, 234) 0%, rgb(7, 58, 187) 100%);

@@ -5,9 +5,9 @@ function App() {
   return (
     <div>
       <Header />
-      <Preload />
       <Search />
       <Filter />
+      <Preload />
       <Pagination />
     </div>
   );

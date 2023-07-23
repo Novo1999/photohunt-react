@@ -1,0 +1,10 @@
+.photohunt__image--gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 5rem 15rem 5rem 15rem;
+  row-gap: 2rem;
+}
+.photohunt__image--gallery img {
+  width: 20rem;
+  height: 30rem;
+}

@@ -4,19 +4,29 @@
   margin-top: 3rem;
 }
 
-.search input {
-  width: 25rem;
-  height: 3rem;
-  background-color: rgba(0, 204, 255, 0.39);
-  border: none;
-  outline: none;
-  border-radius: 1rem;
-  font-size: 20px;
-  color: white;
-  padding-left: 33px;
+.filter-section {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
-.search p {
-  position: absolute;
-  margin-top: 11px;
-  margin-left: 5px;
+
+#home {
+  padding: 8px;
+  background: none;
+  color: white;
+  border: 1px solid white;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 12px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+    'Lucida Sans', Arial, sans-serif;
+  font-weight: 700;
+  height: 50px;
+  margin-top: 1rem;
+}
+
+#home:hover {
+  transition: 0.3s all linear;
+  background-color: whitesmoke;
+  color: black;
 }

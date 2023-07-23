@@ -1,3 +1,4 @@
+export { default as FilterTab } from './FilterTab/FilterTab';
 export { default as Preload } from './Preload/Preload';
 export { default as Search } from './Search/Search';
 export { default as Pagination } from './Pagination/Pagination';

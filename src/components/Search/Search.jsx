@@ -1,4 +1,5 @@
 import { useState, useEffect, React } from 'react';
+import SearchBar from '../SearchBar/SearchBar';
 import {
   API_KEY,
   PAGE_NUMBER,
@@ -6,14 +7,37 @@ import {
   DisplayPhotos,
 } from '../Preload/Preload';
 import './search.css';
-function Search({ isSearched, onSetIsSearched }) {
+import FilterTab from '../FilterTab/FilterTab';
+
+function Search({
+  isSearched,
+  onSetIsSearched,
+  isFiltered,
+  onSetIsFiltered,
+  filterOptions,
+  onSetQuery,
+  onSetCurSelected,
+  curSelected,
+}) {
   const [query, setQuery] = useState('');
   const [searchResult, setSearchResult] = useState([]);
   const abortController = new AbortController();
+  function handleQuery(opt, i) {
+    onSetQuery(() => opt);
+    onSetIsFiltered(() => true);
+    onSetIsSearched(() => false);
+    onSetCurSelected(() => i);
+  }
   function handleSearch(e) {
     e.preventDefault();
     setQuery(() => e.target.value);
     onSetIsSearched(() => true);
+    onSetIsFiltered(() => false);
+  }
+  function handleHome() {
+    onSetIsFiltered(() => false);
+    onSetIsSearched(() => false);
+    onSetCurSelected(() => null);
   }
   useEffect(() => {
     async function fetchData() {
@@ -44,19 +68,28 @@ function Search({ isSearched, onSetIsSearched }) {
 
   return (
     <>
-      <div className="search search__container">
-        <form onSubmit={e => handleSearch(e)}>
-          <p>🔍</p>
-          <input
-            value={query}
-            onChange={e => setQuery(e.target.value)}
-            type="text"
-            name="search"
-            id="search"
+      <SearchBar
+        onHandleSearch={handleSearch}
+        query={query}
+        onSetQuery={setQuery}
+      />
+      <div className="filter-section">
+        {(isFiltered || isSearched) && (
+          <button onClick={handleHome} id="home">
+            Home
+          </button>
+        )}
+        {filterOptions.map((opt, i) => (
+          <FilterTab
+            curSelected={curSelected}
+            onHandleQuery={handleQuery}
+            key={i}
+            opt={opt}
+            index={i}
           />
-        </form>
+        ))}
       </div>
-      {isSearched && <DisplayPhotos photos={searchResult} />}
+      {isSearched && !isFiltered && <DisplayPhotos photos={searchResult} />}
     </>
   );
 }

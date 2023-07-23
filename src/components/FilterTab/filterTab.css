@@ -1,10 +1,6 @@
 .filter {
-  display: flex;
-  justify-content: center;
   margin-top: 2rem;
-  gap: 1rem;
 }
-
 .filter button {
   padding: 8px;
   background: none;
@@ -27,11 +23,4 @@
   transition: 0.3s all linear;
   background-color: whitesmoke;
   color: black;
-}
-#home {
-  background: linear-gradient(
-    90deg,
-    rgba(22, 0, 255, 1) 0%,
-    rgba(238, 130, 238, 1) 100%
-  );
 }

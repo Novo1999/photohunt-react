@@ -3,6 +3,7 @@
   grid-template-columns: repeat(4, 1fr);
   padding: 5rem 15rem 5rem 15rem;
   row-gap: 2rem;
+  justify-content: center;
 }
 .photohunt__image--gallery img {
   width: 20rem;

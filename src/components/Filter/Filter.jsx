@@ -5,29 +5,10 @@ import {
   CONTENTS_PER_PAGE,
   PAGE_NUMBER,
 } from '../Preload/Preload';
-import './filter.css';
-const filterOptions = [
-  'animal',
-  'nature',
-  'beauty',
-  'sky',
-  'ocean',
-  'flower',
-  'human',
-  'car',
-  'country',
-  'space',
-];
-function Filter({ isFiltered, onSetIsFiltered, isSearched, onSetIsSearched }) {
-  const [query, setQuery] = useState('');
+
+function Filter({ query, isFiltered, isSearched }) {
   const [filterResults, setFilterResults] = useState([]);
-  const [curSelected, setCurSelected] = useState(null);
-  function handleQuery(opt, i) {
-    setQuery(() => opt);
-    onSetIsFiltered(() => true);
-    onSetIsSearched(() => false);
-    setCurSelected(() => i);
-  }
+
   useEffect(() => {
     async function fetchData() {
       try {
@@ -52,32 +33,7 @@ function Filter({ isFiltered, onSetIsFiltered, isSearched, onSetIsSearched }) {
   }, [query]);
 
   return (
-    <>
-      <div className="filter">
-        {isFiltered && (
-          <button
-            onClick={() => {
-              onSetIsFiltered(false);
-              setCurSelected(() => null);
-            }}
-            id="home"
-          >
-            HOME
-          </button>
-        )}
-
-        {filterOptions.map((opt, i) => (
-          <button
-            id={curSelected === i ? 'active' : ''}
-            onClick={() => handleQuery(opt, i)}
-            key={i}
-          >
-            {opt.toUpperCase()}
-          </button>
-        ))}
-      </div>
-      {isFiltered && !isSearched && <DisplayPhotos photos={filterResults} />}
-    </>
+    <>{isFiltered && !isSearched && <DisplayPhotos photos={filterResults} />}</>
   );
 }
 

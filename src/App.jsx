@@ -2,12 +2,13 @@ import { useState } from 'react';
 import { Header, Preload, Search, Filter, Pagination } from './components';
 import './App.css';
 function App() {
+  const [isFiltered, setIsFiltered] = useState(false);
   return (
     <div>
       <Header />
       <Search />
-      <Filter />
-      <Preload />
+      <Filter isFiltered={isFiltered} setIsFiltered={setIsFiltered} />
+      <Preload isFiltered={isFiltered} setIsFiltered={setIsFiltered} />
       <Pagination />
     </div>
   );

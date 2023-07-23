@@ -2,11 +2,12 @@
 import React, { useEffect, useState } from 'react';
 import './preload.css';
 
-const PAGE_NUMBER = 1;
-const CONTENTS_PER_PAGE = 40;
-const API_KEY = 'ub7cbTPncCazUPCwTk9BpOy7xoH0KDaqmeiQpaQiWnEMojw7MRCrk4TU';
+export const PAGE_NUMBER = 1;
+export const CONTENTS_PER_PAGE = 40;
+export const API_KEY =
+  'ub7cbTPncCazUPCwTk9BpOy7xoH0KDaqmeiQpaQiWnEMojw7MRCrk4TU';
 
-function Preload() {
+function Preload({ isFiltered }) {
   const [photos, setPhotos] = useState([]);
   useEffect(() => {
     async function fetchData() {
@@ -27,10 +28,10 @@ function Preload() {
     }
     fetchData();
   }, []);
-  return <DisplayPhotos photos={photos} />;
+  return isFiltered === false && <DisplayPhotos photos={photos} />;
 }
 
-function DisplayPhotos({ photos }) {
+export function DisplayPhotos({ photos }) {
   return (
     <div className="photohunt__image--gallery">
       {photos.map((photo, i) => (

@@ -23,3 +23,10 @@
   background-color: whitesmoke;
   color: black;
 }
+#home {
+  background: linear-gradient(
+    90deg,
+    rgba(22, 0, 255, 1) 0%,
+    rgba(238, 130, 238, 1) 100%
+  );
+}

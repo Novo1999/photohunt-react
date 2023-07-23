@@ -15,13 +15,18 @@ const filterOptions = [
   'flower',
   'human',
   'car',
+  'country',
+  'space',
 ];
-function Filter({ isFiltered, setIsFiltered }) {
+function Filter({ isFiltered, onSetIsFiltered, isSearched, onSetIsSearched }) {
   const [query, setQuery] = useState('');
   const [filterResults, setFilterResults] = useState([]);
-  function handleQuery(opt) {
+  const [curSelected, setCurSelected] = useState(null);
+  function handleQuery(opt, i) {
     setQuery(() => opt);
-    setIsFiltered(() => true);
+    onSetIsFiltered(() => true);
+    onSetIsSearched(() => false);
+    setCurSelected(() => i);
   }
   useEffect(() => {
     async function fetchData() {
@@ -50,18 +55,28 @@ function Filter({ isFiltered, setIsFiltered }) {
     <>
       <div className="filter">
         {isFiltered && (
-          <button onClick={() => setIsFiltered(false)} id="home">
+          <button
+            onClick={() => {
+              onSetIsFiltered(false);
+              setCurSelected(() => null);
+            }}
+            id="home"
+          >
             HOME
           </button>
         )}
 
         {filterOptions.map((opt, i) => (
-          <button onClick={() => handleQuery(opt)} key={i}>
+          <button
+            id={curSelected === i ? 'active' : ''}
+            onClick={() => handleQuery(opt, i)}
+            key={i}
+          >
             {opt.toUpperCase()}
           </button>
         ))}
       </div>
-      {isFiltered && <DisplayPhotos photos={filterResults} />}
+      {isFiltered && !isSearched && <DisplayPhotos photos={filterResults} />}
     </>
   );
 }

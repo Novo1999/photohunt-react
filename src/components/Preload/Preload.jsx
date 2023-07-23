@@ -7,7 +7,7 @@ export const CONTENTS_PER_PAGE = 40;
 export const API_KEY =
   'ub7cbTPncCazUPCwTk9BpOy7xoH0KDaqmeiQpaQiWnEMojw7MRCrk4TU';
 
-function Preload({ isFiltered }) {
+function Preload({ isFiltered, isSearched }) {
   const [photos, setPhotos] = useState([]);
   useEffect(() => {
     async function fetchData() {
@@ -28,7 +28,10 @@ function Preload({ isFiltered }) {
     }
     fetchData();
   }, []);
-  return isFiltered === false && <DisplayPhotos photos={photos} />;
+  return (
+    isFiltered === false &&
+    isSearched === false && <DisplayPhotos photos={photos} />
+  );
 }
 
 export function DisplayPhotos({ photos }) {

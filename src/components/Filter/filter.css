@@ -18,6 +18,11 @@
   font-weight: 700;
 }
 
+#active {
+  background-color: whitesmoke;
+  color: black;
+}
+
 .filter button:hover {
   transition: 0.3s all linear;
   background-color: whitesmoke;

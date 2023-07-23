@@ -33,6 +33,7 @@ function Search({
     setQuery(() => e.target.value);
     onSetIsSearched(() => true);
     onSetIsFiltered(() => false);
+    onSetCurSelected(() => null);
   }
   function handleHome() {
     onSetIsFiltered(() => false);

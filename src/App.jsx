@@ -13,6 +13,7 @@ function App() {
   const [isSearched, setIsSearched] = useState(false);
   const [query, setQuery] = useState('');
   const [curSelected, setCurSelected] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
   const filterOptions = [
     'animal',
     'nature',
@@ -46,13 +47,14 @@ function App() {
         onSetIsSearched={setIsSearched}
         query={query}
       />
+      <Pagination onSetCurrentPage={setCurrentPage} />
 
       <Preload
         isSearched={isSearched}
         isFiltered={isFiltered}
         onSetIsFiltered={setIsFiltered}
+        currentPage={currentPage}
       />
-      <Pagination />
     </div>
   );
 }

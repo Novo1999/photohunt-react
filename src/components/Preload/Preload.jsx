@@ -7,13 +7,13 @@ export const CONTENTS_PER_PAGE = 40;
 export const API_KEY =
   'ub7cbTPncCazUPCwTk9BpOy7xoH0KDaqmeiQpaQiWnEMojw7MRCrk4TU';
 
-function Preload({ isFiltered, isSearched }) {
+function Preload({ isFiltered, isSearched, currentPage }) {
   const [photos, setPhotos] = useState([]);
   useEffect(() => {
     async function fetchData() {
       try {
         const response = await fetch(
-          `https://api.pexels.com/v1/curated?page=${PAGE_NUMBER}&per_page=${CONTENTS_PER_PAGE}`,
+          `https://api.pexels.com/v1/curated?page=${currentPage}&per_page=${CONTENTS_PER_PAGE}`,
           {
             headers: { Authorization: API_KEY },
           }
@@ -27,7 +27,7 @@ function Preload({ isFiltered, isSearched }) {
       }
     }
     fetchData();
-  }, []);
+  }, [currentPage]);
   return (
     isFiltered === false &&
     isSearched === false && <DisplayPhotos photos={photos} />

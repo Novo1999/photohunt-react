@@ -5,7 +5,7 @@ import {
   Search,
   Filter,
   Pagination,
-  FilterTab,
+  Loading,
 } from './components';
 import './App.css';
 function App() {
@@ -14,6 +14,7 @@ function App() {
   const [query, setQuery] = useState('');
   const [curSelected, setCurSelected] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [isLoaded, setIsLoaded] = useState(false);
   const filterOptions = [
     'animal',
     'nature',
@@ -28,6 +29,7 @@ function App() {
   ];
   return (
     <div>
+      {/* <Loading /> */}
       <Header />
       <Search
         isSearched={isSearched}
@@ -38,6 +40,8 @@ function App() {
         onSetQuery={setQuery}
         onSetCurSelected={setCurSelected}
         curSelected={curSelected}
+        isLoaded={isLoaded}
+        onSetIsLoaded={setIsLoaded}
       />
 
       <Filter
@@ -46,6 +50,8 @@ function App() {
         onSetIsFiltered={setIsFiltered}
         onSetIsSearched={setIsSearched}
         query={query}
+        isLoaded={isLoaded}
+        onSetIsLoaded={setIsLoaded}
       />
       <Pagination onSetCurrentPage={setCurrentPage} />
 

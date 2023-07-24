@@ -4,6 +4,15 @@
   padding: 0;
 }
 
+html,
 body {
+  height: 100vh;
   background-color: black;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  margin-top: 15rem;
 }

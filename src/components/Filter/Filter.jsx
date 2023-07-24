@@ -5,10 +5,9 @@ import {
   CONTENTS_PER_PAGE,
   PAGE_NUMBER,
 } from '../Preload/Preload';
-
-function Filter({ query, isFiltered, isSearched }) {
+import Loading from '../Loading/Loading';
+function Filter({ query, isFiltered, isSearched, isLoaded, onSetIsLoaded }) {
   const [filterResults, setFilterResults] = useState([]);
-
   useEffect(() => {
     async function fetchData() {
       try {
@@ -23,6 +22,7 @@ function Filter({ query, isFiltered, isSearched }) {
         if (!query) return;
         if (!response.ok) throw new Error('Could not get desired result');
         const data = await response.json();
+        onSetIsLoaded(() => false);
         setFilterResults(() => data.photos);
         console.log(data);
       } catch (err) {
@@ -33,7 +33,15 @@ function Filter({ query, isFiltered, isSearched }) {
   }, [query]);
 
   return (
-    <>{isFiltered && !isSearched && <DisplayPhotos photos={filterResults} />}</>
+    <>
+      {isLoaded ? (
+        <div className="loader">
+          <Loading />
+        </div>
+      ) : (
+        isFiltered && !isSearched && <DisplayPhotos photos={filterResults} />
+      )}
+    </>
   );
 }
 

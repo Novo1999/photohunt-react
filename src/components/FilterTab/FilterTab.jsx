@@ -1,13 +1,22 @@
 import React from 'react';
 import './filterTab.css';
 
-const FilterTab = ({ curSelected, onHandleQuery, index, opt }) => {
+const FilterTab = ({
+  curSelected,
+  onHandleQuery,
+  index,
+  opt,
+  onSetIsLoaded,
+}) => {
   return (
     <>
       <div className="filter">
         <button
           id={curSelected === index ? 'active' : ''}
-          onClick={() => onHandleQuery(opt, index)}
+          onClick={() => {
+            onSetIsLoaded(() => true);
+            onHandleQuery(opt, index);
+          }}
         >
           {opt.toUpperCase()}
         </button>

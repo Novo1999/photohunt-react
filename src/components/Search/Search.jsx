@@ -18,6 +18,7 @@ function Search({
   onSetQuery,
   onSetCurSelected,
   curSelected,
+  onSetIsLoaded,
 }) {
   const [query, setQuery] = useState('');
   const [searchResult, setSearchResult] = useState([]);
@@ -87,6 +88,7 @@ function Search({
             key={i}
             opt={opt}
             index={i}
+            onSetIsLoaded={onSetIsLoaded}
           />
         ))}
       </div>

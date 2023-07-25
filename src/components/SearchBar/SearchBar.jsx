@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './searchBar.css';
-const SearchBar = ({ onHandleSearch, query, onSetQuery }) => {
+const SearchBar = ({
+  onHandleSearch,
+  query,
+  onSetSearchState,
+  searchState,
+}) => {
   return (
     <div className="search search__container">
       <form onSubmit={e => onHandleSearch(e)}>
         <p>🔍</p>
         <input
-          value={query}
-          onChange={e => onSetQuery(e.target.value)}
+          value={searchState}
+          onChange={e => onSetSearchState(e.target.value)}
           type="text"
           name="search"
           id="search"

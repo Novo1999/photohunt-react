@@ -42,6 +42,7 @@ function App() {
         curSelected={curSelected}
         isLoaded={isLoaded}
         onSetIsLoaded={setIsLoaded}
+        query={query}
       />
 
       <Filter
@@ -60,6 +61,7 @@ function App() {
         isFiltered={isFiltered}
         onSetIsFiltered={setIsFiltered}
         currentPage={currentPage}
+        isLoaded={isLoaded}
       />
     </div>
   );

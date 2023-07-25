@@ -8,7 +8,6 @@ import {
 } from '../Preload/Preload';
 import './search.css';
 import FilterTab from '../FilterTab/FilterTab';
-
 function Search({
   isSearched,
   onSetIsSearched,
@@ -19,9 +18,12 @@ function Search({
   onSetCurSelected,
   curSelected,
   onSetIsLoaded,
+  isLoaded,
 }) {
   const [query, setQuery] = useState('');
   const [searchResult, setSearchResult] = useState([]);
+  const [searchState, setSearchState] = useState('');
+  console.log(searchState);
   const abortController = new AbortController();
   function handleQuery(opt, i) {
     onSetQuery(() => opt);
@@ -31,10 +33,11 @@ function Search({
   }
   function handleSearch(e) {
     e.preventDefault();
-    setQuery(() => e.target.value);
+    setQuery(() => searchState);
     onSetIsSearched(() => true);
     onSetIsFiltered(() => false);
     onSetCurSelected(() => null);
+    onSetIsLoaded(() => true);
   }
   function handleHome() {
     onSetIsFiltered(() => false);
@@ -58,6 +61,7 @@ function Search({
         if (!query) return;
         if (!response.ok) throw new Error('Could not get desired result');
         const data = await response.json();
+        onSetIsLoaded(() => false);
         setSearchResult(() => data.photos);
         console.log(data);
       } catch (err) {
@@ -66,11 +70,13 @@ function Search({
     }
     fetchData();
     return abortController.abort();
-  }, [query, abortController]);
+  }, [query, abortController, onSetIsLoaded]);
 
   return (
     <>
       <SearchBar
+        searchState={searchState}
+        onSetSearchState={setSearchState}
         onHandleSearch={handleSearch}
         query={query}
         onSetQuery={setQuery}
@@ -92,6 +98,7 @@ function Search({
           />
         ))}
       </div>
+
       {isSearched && !isFiltered && <DisplayPhotos photos={searchResult} />}
     </>
   );

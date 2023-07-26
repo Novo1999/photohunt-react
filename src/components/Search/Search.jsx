@@ -23,8 +23,7 @@ function Search({
   const [query, setQuery] = useState('');
   const [searchResult, setSearchResult] = useState([]);
   const [searchState, setSearchState] = useState('');
-  console.log(searchState);
-  const abortController = new AbortController();
+
   function handleQuery(opt, i) {
     onSetQuery(() => opt);
     onSetIsFiltered(() => true);
@@ -38,6 +37,7 @@ function Search({
     onSetIsFiltered(() => false);
     onSetCurSelected(() => null);
     onSetIsLoaded(() => true);
+    setSearchState(() => '');
   }
   function handleHome() {
     onSetIsFiltered(() => false);
@@ -45,6 +45,7 @@ function Search({
     onSetCurSelected(() => null);
   }
   useEffect(() => {
+    const abortController = new AbortController();
     async function fetchData() {
       try {
         const response = await fetch(
@@ -70,7 +71,7 @@ function Search({
     }
     fetchData();
     return abortController.abort();
-  }, [query, abortController, onSetIsLoaded]);
+  }, [query, onSetIsLoaded]);
 
   return (
     <>

@@ -36,7 +36,6 @@ function Preload({ isFiltered, isSearched, currentPage, isLoaded }) {
     )
   );
 }
-
 export function DisplayPhotos({ photos, isLoaded }) {
   return isLoaded ? (
     <div className="loader">

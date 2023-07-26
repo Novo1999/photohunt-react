@@ -6,13 +6,22 @@ import {
   PAGE_NUMBER,
 } from '../Preload/Preload';
 import Loading from '../Loading/Loading';
-function Filter({ query, isFiltered, isSearched, isLoaded, onSetIsLoaded }) {
+function Filter({
+  query,
+  isFiltered,
+  isSearched,
+  isLoaded,
+  onSetIsLoaded,
+  currentPage,
+}) {
   const [filterResults, setFilterResults] = useState([]);
   useEffect(() => {
     async function fetchData() {
       try {
         const response = await fetch(
-          `https://api.pexels.com/v1/search?page=${PAGE_NUMBER}&per_page=${CONTENTS_PER_PAGE}&query=${query}`,
+          `https://api.pexels.com/v1/search?page=${
+            isFiltered ? currentPage : null
+          }&per_page=${CONTENTS_PER_PAGE}&query=${query}`,
           {
             headers: {
               Authorization: API_KEY,

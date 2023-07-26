@@ -53,6 +53,7 @@ function App() {
         query={query}
         isLoaded={isLoaded}
         onSetIsLoaded={setIsLoaded}
+        currentPage={currentPage}
       />
       <Pagination onSetCurrentPage={setCurrentPage} />
 

@@ -14,7 +14,9 @@ function Preload({ isFiltered, isSearched, currentPage, isLoaded }) {
     async function fetchData() {
       try {
         const response = await fetch(
-          `https://api.pexels.com/v1/curated?page=${currentPage}&per_page=${CONTENTS_PER_PAGE}`,
+          `https://api.pexels.com/v1/curated?page=${
+            !isFiltered ? currentPage : null
+          }&per_page=${CONTENTS_PER_PAGE}`,
           {
             headers: { Authorization: API_KEY },
           }

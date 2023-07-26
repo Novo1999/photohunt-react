@@ -18,7 +18,6 @@ function Search({
   onSetCurSelected,
   curSelected,
   onSetIsLoaded,
-  isLoaded,
 }) {
   const [query, setQuery] = useState('');
   const [searchResult, setSearchResult] = useState([]);

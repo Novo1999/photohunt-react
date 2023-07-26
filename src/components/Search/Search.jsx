@@ -1,11 +1,6 @@
 import { useState, useEffect, React } from 'react';
 import SearchBar from '../SearchBar/SearchBar';
-import {
-  API_KEY,
-  PAGE_NUMBER,
-  CONTENTS_PER_PAGE,
-  DisplayPhotos,
-} from '../Preload/Preload';
+import { API_KEY, CONTENTS_PER_PAGE, DisplayPhotos } from '../Preload/Preload';
 import './search.css';
 import FilterTab from '../FilterTab/FilterTab';
 function Search({
@@ -18,6 +13,7 @@ function Search({
   onSetCurSelected,
   curSelected,
   onSetIsLoaded,
+  currentPage,
 }) {
   const [query, setQuery] = useState('');
   const [searchResult, setSearchResult] = useState([]);
@@ -48,7 +44,9 @@ function Search({
     async function fetchData() {
       try {
         const response = await fetch(
-          `https://api.pexels.com/v1/search?page=${PAGE_NUMBER}&per_page=${CONTENTS_PER_PAGE}&query=${query}`,
+          `https://api.pexels.com/v1/search?page=${
+            !isFiltered || isSearched ? currentPage : null
+          }&per_page=${CONTENTS_PER_PAGE}&query=${query}`,
           {
             headers: {
               Authorization: API_KEY,
@@ -61,8 +59,8 @@ function Search({
         if (!query) return;
         if (!response.ok) throw new Error('Could not get desired result');
         const data = await response.json();
-        onSetIsLoaded(() => false);
         setSearchResult(() => data.photos);
+        onSetIsLoaded(() => false);
         console.log(data);
       } catch (err) {
         console.error(err);
@@ -70,7 +68,7 @@ function Search({
     }
     fetchData();
     return abortController.abort();
-  }, [query, onSetIsLoaded]);
+  }, [query, onSetIsLoaded, currentPage, isFiltered, isSearched]);
 
   return (
     <>

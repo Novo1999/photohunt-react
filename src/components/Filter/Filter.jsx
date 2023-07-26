@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  DisplayPhotos,
-  API_KEY,
-  CONTENTS_PER_PAGE,
-  PAGE_NUMBER,
-} from '../Preload/Preload';
+import { DisplayPhotos, API_KEY, CONTENTS_PER_PAGE } from '../Preload/Preload';
 import Loading from '../Loading/Loading';
 function Filter({
   query,
@@ -20,7 +15,7 @@ function Filter({
       try {
         const response = await fetch(
           `https://api.pexels.com/v1/search?page=${
-            isFiltered ? currentPage : null
+            !isSearched && isFiltered ? currentPage : null
           }&per_page=${CONTENTS_PER_PAGE}&query=${query}`,
           {
             headers: {
@@ -33,13 +28,12 @@ function Filter({
         const data = await response.json();
         onSetIsLoaded(() => false);
         setFilterResults(() => data.photos);
-        console.log(data);
       } catch (err) {
         console.error(err);
       }
     }
     fetchData();
-  }, [query]);
+  }, [query, currentPage, isFiltered, onSetIsLoaded]);
 
   return (
     <>

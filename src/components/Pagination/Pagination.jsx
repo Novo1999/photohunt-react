@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './pagination.css';
-function Pagination({ onSetCurrentPage }) {
+function Pagination({ onSetCurrentPage, onSetIsLoaded }) {
   const [pagBtnValue, setPagBtnValue] = useState(1);
   console.log(pagBtnValue);
   function handleNext() {
@@ -17,7 +17,10 @@ function Pagination({ onSetCurrentPage }) {
   return (
     <div
       className="pagination"
-      onClick={e => e.target.value && onSetCurrentPage(e.target.value)}
+      onClick={e => {
+        e.target.value && onSetCurrentPage(e.target.value);
+        onSetIsLoaded(true);
+      }}
     >
       <button style={visibilityStyle} onClick={handlePrevious}>
         ◀

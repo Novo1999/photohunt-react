@@ -5,7 +5,8 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  top: 4rem;
+  top: 13.5rem;
+  right: 2.5rem;
 }
 
 .pagination button {

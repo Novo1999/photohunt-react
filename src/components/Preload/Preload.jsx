@@ -8,14 +8,20 @@ export const CONTENTS_PER_PAGE = 40;
 export const API_KEY =
   'ub7cbTPncCazUPCwTk9BpOy7xoH0KDaqmeiQpaQiWnEMojw7MRCrk4TU';
 
-function Preload({ isFiltered, isSearched, currentPage, isLoaded }) {
+function Preload({
+  isFiltered,
+  isSearched,
+  currentPage,
+  isLoaded,
+  onSetIsLoaded,
+}) {
   const [photos, setPhotos] = useState([]);
   useEffect(() => {
     async function fetchData() {
       try {
         const response = await fetch(
           `https://api.pexels.com/v1/curated?page=${
-            !isFiltered ? currentPage : null
+            !isSearched || !isFiltered ? currentPage : null
           }&per_page=${CONTENTS_PER_PAGE}`,
           {
             headers: { Authorization: API_KEY },
@@ -23,14 +29,14 @@ function Preload({ isFiltered, isSearched, currentPage, isLoaded }) {
         );
         if (!response.ok) throw new Error('Server did not response');
         const data = await response.json();
-        console.log(data);
         setPhotos(() => data.photos);
+        onSetIsLoaded(false);
       } catch (err) {
         alert(err);
       }
     }
     fetchData();
-  }, [currentPage]);
+  }, [currentPage, isFiltered, isSearched, onSetIsLoaded]);
   return (
     isFiltered === false &&
     isSearched === false && (

@@ -1,12 +1,5 @@
 import { useState } from 'react';
-import {
-  Header,
-  Preload,
-  Search,
-  Filter,
-  Pagination,
-  Loading,
-} from './components';
+import { Header, Preload, Search, Filter, Pagination } from './components';
 import './App.css';
 function App() {
   const [isFiltered, setIsFiltered] = useState(false);
@@ -31,6 +24,10 @@ function App() {
     <div>
       {/* <Loading /> */}
       <Header />
+      <Pagination
+        onSetCurrentPage={setCurrentPage}
+        onSetIsLoaded={setIsLoaded}
+      />
       <Search
         isSearched={isSearched}
         onSetIsSearched={setIsSearched}
@@ -43,6 +40,7 @@ function App() {
         isLoaded={isLoaded}
         onSetIsLoaded={setIsLoaded}
         query={query}
+        currentPage={currentPage}
       />
 
       <Filter
@@ -55,7 +53,6 @@ function App() {
         onSetIsLoaded={setIsLoaded}
         currentPage={currentPage}
       />
-      <Pagination onSetCurrentPage={setCurrentPage} />
 
       <Preload
         isSearched={isSearched}
@@ -63,6 +60,7 @@ function App() {
         onSetIsFiltered={setIsFiltered}
         currentPage={currentPage}
         isLoaded={isLoaded}
+        onSetIsLoaded={setIsLoaded}
       />
     </div>
   );

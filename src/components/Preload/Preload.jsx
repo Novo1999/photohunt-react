@@ -52,7 +52,7 @@ export function DisplayPhotos({ photos, isLoaded }) {
   ) : (
     <div className="photohunt__image--gallery">
       {photos.map((photo, i) => (
-        <img key={i} src={photo.src.tiny} alt="photo" />
+        <img key={i} src={photo.src.large} alt="photo" />
       ))}
     </div>
   );
